@@ -1,11 +1,14 @@
 package com.example.randombreakingbad;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -31,14 +34,53 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
+
         final Button bouton = findViewById(R.id.button); //Button to get a random character
+
+        final ImageView photo = findViewById(R.id.imageView); //Picture of the character
+        final TextView nom = findViewById(R.id.champNom); //Name of the character
+        final TextView surnom = findViewById(R.id.champSurnom); //Nickname of the character
+        final TextView metier = findViewById(R.id.champMetier); //Jobs of the character
+        final TextView saisons = findViewById(R.id.champSaisons); //Seasons he was on the show
+        final TextView headnom = findViewById(R.id.textView1);
+        final TextView headsurnom = findViewById(R.id.textView2);
+        final TextView headmetier = findViewById(R.id.textView3);
+        final TextView headsaison = findViewById(R.id.textView4);
+//        final ConstraintLayout layoutout = findViewById(R.id.layout1);
+
+        photo.setVisibility(View.INVISIBLE);
+        nom.setVisibility(View.INVISIBLE);
+        surnom.setVisibility(View.INVISIBLE);
+        metier.setVisibility(View.INVISIBLE);
+        saisons.setVisibility(View.INVISIBLE);
+        headnom.setVisibility(View.INVISIBLE);
+        headsurnom.setVisibility(View.INVISIBLE);
+        headmetier.setVisibility(View.INVISIBLE);
+        headsaison.setVisibility(View.INVISIBLE);
+
+        final ProgressBar progress = findViewById(R.id.progressBar1); //Nickname of the character
+
         //call randomCharacter a first time on launch
         randomCharacter();
 
         //Listener on the button to get a new random character
-        bouton.setOnClickListener(v -> randomCharacter());
+        bouton.setOnClickListener(v ->{
+
+            //layoutout.setVisibility(View.INVISIBLE);
+            photo.setVisibility(View.INVISIBLE);
+            nom.setVisibility(View.INVISIBLE);
+            surnom.setVisibility(View.INVISIBLE);
+            metier.setVisibility(View.INVISIBLE);
+            progress.setVisibility(View.VISIBLE);
+            saisons.setVisibility(View.INVISIBLE);
+            headnom.setVisibility(View.INVISIBLE);
+            headsurnom.setVisibility(View.INVISIBLE);
+            headmetier.setVisibility(View.INVISIBLE);
+            headsaison.setVisibility(View.INVISIBLE);
+         randomCharacter();
+        });
 
     }
 
@@ -46,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
      * Method to fetch a random character from the API and give it to the updateUI methode as a JSONObject
      */
     private void randomCharacter() {
+
 
         //OkHttp3 request
         OkHttpClient client = new OkHttpClient();
@@ -100,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
         final TextView surnom = findViewById(R.id.champSurnom); //Nickname of the character
         final TextView metier = findViewById(R.id.champMetier); //Jobs of the character
         final TextView saisons = findViewById(R.id.champSaisons); //Seasons he was on the show
+        final ProgressBar progress = findViewById(R.id.progressBar1); //Nickname of the character
+        final TextView headnom = findViewById(R.id.textView1);
+        final TextView headsurnom = findViewById(R.id.textView2);
+        final TextView headmetier = findViewById(R.id.textView3);
+        final TextView headsaison = findViewById(R.id.textView4);
         //Necessary as glide.into() only run on main thread
         runOnUiThread(() -> {
             try {
@@ -133,6 +181,17 @@ public class MainActivity extends AppCompatActivity {
                 //Another way to remove undesirable character ([] and ,) here with regex and replaceAll
                 textSeason = textSeason.replaceAll("[^0-9]", "  ");
                 saisons.setText(textSeason);
+
+                photo.setVisibility(View.VISIBLE);
+                nom.setVisibility(View.VISIBLE);
+                surnom.setVisibility(View.VISIBLE);
+                metier.setVisibility(View.VISIBLE);
+                saisons.setVisibility(View.VISIBLE);
+                headnom.setVisibility(View.VISIBLE);
+                headsurnom.setVisibility(View.VISIBLE);
+                headmetier.setVisibility(View.VISIBLE);
+                headsaison.setVisibility(View.VISIBLE);
+                progress.setVisibility(View.INVISIBLE);
 
             } catch (JSONException e) {
                 e.printStackTrace();
