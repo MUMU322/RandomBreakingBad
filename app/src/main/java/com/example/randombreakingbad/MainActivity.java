@@ -3,6 +3,8 @@ package com.example.randombreakingbad;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView headsurnom = findViewById(R.id.textView2);
         final TextView headmetier = findViewById(R.id.textView3);
         final TextView headsaison = findViewById(R.id.textView4);
+        final ProgressBar progress = findViewById(R.id.progressBar1); //Nickname of the character
 //        final ConstraintLayout layoutout = findViewById(R.id.layout1);
 
         photo.setVisibility(View.INVISIBLE);
@@ -60,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         headmetier.setVisibility(View.INVISIBLE);
         headsaison.setVisibility(View.INVISIBLE);
 
-        final ProgressBar progress = findViewById(R.id.progressBar1); //Nickname of the character
 
         //call randomCharacter a first time on launch
         randomCharacter();
